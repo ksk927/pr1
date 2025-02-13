@@ -38,37 +38,43 @@ public class MemberDAO {
 		return memberList;
 	}
 	
-	public boolean updateMember(int memberId, Member updatedInfo) {
+	public Member getMemberById(int memberId) {
 	    for (Member member : memberList) {
 	        if (member.getId() == memberId) {
-	            // 수정 전 정보 출력
-	            //System.out.println("수정 전 정보: " + member);
-
-	            // 기존 회원 정보 업데이트
-	            member.setAddr(updatedInfo.getAddr());
-	            member.setEmail(updatedInfo.getEmail());
-	            member.setNation(updatedInfo.getNation());
-	            member.setAge(updatedInfo.getAge());
-
-	            // 수정 후 정보 출력
-	            //System.out.println("수정 후 정보: " + member);
-	            
-	            return true; // 업데이트 성공
+	            return member;
 	        }
 	    }
-	    //System.out.println("회원 정보 수정 실패: 해당 ID의 회원이 없습니다.");
-	    return false; // ID가 존재하지 않음
+	    return null;  // 회원이 없으면 null을 반환
 	}
 	
-	public Member getMemberById(int memberId) {
-        // memberList를 순회하면서 해당 ID의 회원을 찾음
-        for (Member member : memberList) {
-            if (member.getId() == memberId) {
-                return member;  // 해당 ID의 회원을 찾으면 반환
-            }
-        }
-        return null;  // 해당 ID의 회원이 없으면 null 반환
-    }
+	public boolean updateMember(int memberId, Member updatedMember) {
+		for (Member member : memberList) {
+			if (member.getId() == memberId) {
+				//System.out.println("수정 전: " + member);
+
+				// 기존 정보를 유지하면서 새로운 정보 적용
+				if (updatedMember.getAddr() != null && !updatedMember.getAddr().isEmpty()) {
+					member.setAddr(updatedMember.getAddr());
+				}
+				if (updatedMember.getEmail() != null && !updatedMember.getEmail().isEmpty()) {
+					member.setEmail(updatedMember.getEmail());
+				}
+				if (updatedMember.getNation() != null && !updatedMember.getNation().isEmpty()) {
+					member.setNation(updatedMember.getNation());
+				}
+				if (updatedMember.getAge() > 0) {
+					member.setAge(updatedMember.getAge());
+				}
+
+				//System.out.println("수정 후: " + member);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+    
 	
 	
 }

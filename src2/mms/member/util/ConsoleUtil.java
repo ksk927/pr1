@@ -44,28 +44,6 @@ public class ConsoleUtil {
 	}
 	
 	
-	public Member getUpdateMember(Scanner sc, int memberId) {
-	    // 먼저, memberId로 해당 회원을 찾음
-		MemberDAO memberDAO = new MemberDAO();
-	    Member memberToUpdate = memberDAO.getMemberById(memberId);
-
-	    if (memberToUpdate == null) {
-	        //System.out.println("해당 ID의 회원이 존재하지 않습니다.");
-	        return null;
-	    }
-	    // MemberUpdateService 호출
-	    MemberUpdateService updateService = new MemberUpdateService();
-	    
-	    // 엔터키를 처리하기 위해 하나의 sc.nextLine()을 호출
-	    
-	    sc.nextLine();
-	    
-	    //수정된 회원 정보를 가져오기
-        Member updatedMember = updateService.getUpdatedMember(memberId, memberToUpdate, sc);
-	    
-        
-        //수정된 회원 정보를 반환
-        return updatedMember;
-	}
+	
 	
 }
